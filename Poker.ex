@@ -29,7 +29,8 @@ defmodule Poker do
         Enum.all?(hand, &(&1 in 1..13))  ||
         Enum.all?(hand, &(&1 in 14..26)) ||
         Enum.all?(hand, &(&1 in 27..39)) ||
-        Enum.all?(hand, &(&1 in 40..52)) 
+        Enum.all?(hand, &(&1 in 40..52)) &&
+        true
     end
 
     def is_straight(hand) do
@@ -37,7 +38,8 @@ defmodule Poker do
 		hand_rem==[0,1,10,11,12] ||
 		hand_rem
 		|> Enum.chunk_every(2, 1, :discard)
-		|> Enum.map(fn [x, y] -> y - x end)==[1,1,1,1]
+		|> Enum.map(fn [x, y] -> y - x end)==[1,1,1,1] &&
+        true
 	end
 
     def is_threeOfKind(hand) do
@@ -72,6 +74,27 @@ defmodule Poker do
         end
     end
 
+    def highcard(hand1, hand2) do
+        h1Base = baseHand(hand1)
+        h2Base = baseHand(hand2)
+        aceKingFn = fn
+            el when el == 0 or el == 1 -> el+13
+            el -> el
+        end
+        h1Base = Enum.sort_by(Enum.map(h1Base, aceKingFn), &(&1), :desc)
+        h2Base = Enum.sort_by(Enum.map(h2Base, aceKingFn), &(&1), :desc)
+
+        ((h1Base > h2Base) && hand1)    ||
+        ((h2Base > h1Base) && hand2)    ||
+        ((hand1 > hand2) && hand1)      ||
+        hand2 
+
+    end
+
+    def tieBreak(hand1, hand2, type) do
+
+    end
+
     def deal(intList) do
         listWithIndexS = Stream.with_index(intList)
         hands = listWithIndexS
@@ -81,14 +104,14 @@ defmodule Poker do
                 _ -> [evens, odds ++ [x]]
             end
         end)
-        handOne = Enum.sort(hd(hands))
-        handTwo = Enum.sort(hd(tl(hands)))
+        handOne = Enum.sort_by(Enum.map(hd(hands), aceKingFn), &(&1), :desc)
+        handTwo = Enum.sort_by(Enum.map(hd(tl(hands)), aceKingFn), &(&1), :desc)
         handOneType = getType(handOne)
         handTwoType = getType(handTwo)
 
         ((handOneType > handTwoType) && handOne) ||
         ((handTwoType > handOneType) && handTwo) ||
-        tieBreak(handOne, handTwo, handOneType, handTwoType)
+        tieBreak(handOne, handTwo, handOneType)
 
     end
 
@@ -102,6 +125,6 @@ defmodule Poker do
             _ -> :error
         end
         intList = Enum.map(intList, eachFunc)
-        Enum.sort(intList)
+        Enum.sort(intList) #REMEMBER TO ADD 13 TO KINGS
     end
 end
