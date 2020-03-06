@@ -1,4 +1,18 @@
 defmodule Poker do
+    def deal(intList) do
+        handOne = []
+        handTwo = []
+        listWithIndexS = Stream.with_index(intList)
+        listWithIndexS
+        |> Enum.reduce([[], []], fn ({x, i}, [evens, odds]) ->
+            case rem(i, 2) do
+                0 -> [evens ++ [x], odds]
+                _ -> [evens, odds ++ [x]]
+            end
+        end)
+        |> IO.inspect 
+    end
+    
     def output(intList) do
         remString = &(to_string(rem(&1,13)))
         eachFunc = fn 
