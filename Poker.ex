@@ -1,4 +1,29 @@
 defmodule Poker do
+    def baseHand(hand) do
+        Enum.map(hand, &(rem(&1,13))) 
+    end
+    def is_flush(hand) do 
+        Enum.all?(hand, &(&1 in 1..13))  ||
+        Enum.all?(hand, &(&1 in 14..26)) ||
+        Enum.all?(hand, &(&1 in 27..39)) ||
+        Enum.all?(hand, &(&1 in 40..52)) 
+    end
+    def is_fourOfKind(hand) do
+        bHand = baseHand(hand) 
+        Enum.uniq(bHand) == []
+    end
+    def is_threeOfKind(hand) do
+        bHand = baseHnad(hand)
+        length(Enum.uniq(bHand)) == (length(hand)-3)
+    end
+    def is_twoPair(hand) do
+        bHand = baseHand(hand)
+        length(Enum.uniq(bHand)) == 3
+    end
+    def is_pair(hand) do
+        bHand = baseHand(hand)
+        length(Enum.uniq(bHand)) == 4
+    end
     def deal(intList) do
         handOne = []
         handTwo = []
@@ -12,7 +37,7 @@ defmodule Poker do
         end)
         |> IO.inspect 
     end
-    
+
     def output(intList) do
         remString = &(to_string(rem(&1,13)))
         eachFunc = fn 
