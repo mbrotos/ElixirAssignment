@@ -2,19 +2,29 @@ defmodule Poker do
     def baseHand(hand) do
         Enum.map(hand, &(rem(&1,13))) 
     end
+
+
+
+
+    def is_straight(hand) do
+
+    end
+
+    def is_fourOfKind(hand) do
+        bHand = baseHand(hand) 
+        length(Enum.uniq(bHand)) == 2
+    end
     def is_flush(hand) do 
         Enum.all?(hand, &(&1 in 1..13))  ||
         Enum.all?(hand, &(&1 in 14..26)) ||
         Enum.all?(hand, &(&1 in 27..39)) ||
         Enum.all?(hand, &(&1 in 40..52)) 
     end
-    def is_fourOfKind(hand) do
-        bHand = baseHand(hand) 
-        Enum.uniq(bHand) == []
-    end
     def is_threeOfKind(hand) do
-        bHand = baseHnad(hand)
-        length(Enum.uniq(bHand)) == (length(hand)-3)
+        bHand = baseHand(hand)
+        uniqHand = Enum.uniq(bHand)
+        (length(uniqHand) == 3) &&
+        Enum.any?(uniqHand, fn(s) -> Enum.count(bHand, &(&1==s)) == 3 end)
     end
     def is_twoPair(hand) do
         bHand = baseHand(hand)
