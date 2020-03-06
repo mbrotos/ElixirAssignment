@@ -3,11 +3,10 @@ defmodule Poker do
         Enum.map(hand, &(rem(&1,13))) 
     end
 
-
-
-
     def is_straight(hand) do
-
+        bHand = baseHand(hand)
+        length(Enum.uniq(bHand)) == 5 &&
+        Enum.uniq(bHand |> Enum.chunk_every(2, 1, :discard) |> Enum.map(fn [x, y] -> y-x end)) == [1] 
     end
 
     def is_fourOfKind(hand) do
