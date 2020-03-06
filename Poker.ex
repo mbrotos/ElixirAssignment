@@ -34,7 +34,7 @@ defmodule Poker do
     end
 
     def is_straight(hand) do
-		hand_rem = Enum.sort(Enum.map(hand, fn(n) -> rem(n,13) end))
+		hand_rem = Enum.sort(baseHand(hand))
 		hand_rem==[0,1,10,11,12] ||
 		hand_rem
 		|> Enum.chunk_every(2, 1, :discard)
@@ -59,6 +59,48 @@ defmodule Poker do
         length(Enum.uniq(bHand)) == 4
     end
 
+    def normalizeHand(hand) do
+        aceKingFn = fn
+			e1 when e1==0 or e1==1 -> e1+13
+			e1->e1
+		end
+        Enum.map(hand, aceKingFn)
+    end
+
+    def tie_highcard(hand1, hand2) do
+        h1Base = baseHand(hand1)
+        h2Base = baseHand(hand2)
+        h1Base = Enum.sort_by(normalizeHand(h1Base), &(&1), :desc)
+        h2Base = Enum.sort_by(normalizeHand(h2Base), &(&1), :desc)
+
+        ((h1Base > h2Base) && hand1)    ||
+        ((h2Base > h1Base) && hand2)    ||
+        ((hand1 > hand2) && hand1)      ||
+        hand2 
+
+    end
+
+    def find_n_OfKind(list,num) do	
+		normalizeHand(list)
+		|> Enum.reduce(%{}, fn x, acc -> Map.update(acc, x, 1, &(&1 + 1)) end)
+		|> Enum.find(fn {_, val} -> val == num  end) |> elem(0)
+
+	end
+
+	def tie_fourOfKind(hand1, hand2) do
+		bhand1 = baseHand(hand1)
+		bhand2 = baseHand(hand2)
+		find_n_OfKind(bhand1, 4) > find_n_OfKind(bhand2, 4) && hand1 || 
+        find_n_OfKind(bhand1, 4) < find_n_OfKind(bhand2, 4) && hand2
+	end
+
+	def tie_threeOfKind(hand1, hand2) do
+        bhand1 = baseHand(hand1)
+        bhand2 = baseHand(hand2)
+        find_n_OfKind(bhand1, 3) > find_n_OfKind(bhand2, 3) && hand1 || 
+        find_n_OfKind(bhand1, 3) < find_n_OfKind(bhand2, 3) && hand2
+    end
+
     def getType(hand) do 
         cond do
             is_royalFlush(hand) -> 9
@@ -74,25 +116,15 @@ defmodule Poker do
         end
     end
 
-    def highcard(hand1, hand2) do
-        h1Base = baseHand(hand1)
-        h2Base = baseHand(hand2)
-        aceKingFn = fn
-            el when el == 0 or el == 1 -> el+13
-            el -> el
-        end
-        h1Base = Enum.sort_by(Enum.map(h1Base, aceKingFn), &(&1), :desc)
-        h2Base = Enum.sort_by(Enum.map(h2Base, aceKingFn), &(&1), :desc)
-
-        ((h1Base > h2Base) && hand1)    ||
-        ((h2Base > h1Base) && hand2)    ||
-        ((hand1 > hand2) && hand1)      ||
-        hand2 
-
-    end
-
     def tieBreak(hand1, hand2, type) do
-
+        case type do
+            x when x in [0,4,5,8,9] -> tie_highcard(hand1, hand2)
+            #pair 1 -> 
+            #twopair 2 -> 
+            3 -> tie_threeOfKind(hand1, hand2)
+            6 -> tie_highcard(hand1, hand2) #idk if this works
+            7 -> tie_fourOfKind(hand1, hand2)
+        end
     end
 
     def deal(intList) do
@@ -104,18 +136,18 @@ defmodule Poker do
                 _ -> [evens, odds ++ [x]]
             end
         end)
-        handOne = Enum.sort_by(Enum.map(hd(hands), aceKingFn), &(&1), :desc)
-        handTwo = Enum.sort_by(Enum.map(hd(tl(hands)), aceKingFn), &(&1), :desc)
+        handOne = hd(hands)
+        handTwo = hd(tl(hands))
         handOneType = getType(handOne)
         handTwoType = getType(handTwo)
-
-        ((handOneType > handTwoType) && handOne) ||
-        ((handTwoType > handOneType) && handTwo) ||
-        tieBreak(handOne, handTwo, handOneType)
-
+        #IO.puts(handOneType) #debug
+        #IO.puts(handTwoType) #debug
+        ((handOneType > handTwoType) && output(handOne) )   ||
+        ((handTwoType > handOneType) && output(handTwo))    ||
+        tieBreak(handOne, handTwo, handOneType) |> output
     end
 
-    def output(intList) do
+    def output(hand) do
         remString = &(to_string(rem(&1,13)))
         eachFunc = fn 
             el when el in 1..13 -> to_string(el) <> "C"
@@ -124,7 +156,14 @@ defmodule Poker do
             el when el in 40..52 -> remString.(el) <> "S"
             _ -> :error
         end
-        intList = Enum.map(intList, eachFunc)
-        Enum.sort(intList) #REMEMBER TO ADD 13 TO KINGS
+        kingFn = fn
+			e1 when e1==0 -> e1+13
+			e1->e1
+		end
+        hand 
+        |> Stream.map(eachFunc) 
+        |> Stream.map(kingFn) 
+        |> Enum.to_list
+        |> Enum.sort
     end
 end
