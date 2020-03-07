@@ -159,7 +159,8 @@ defmodule Poker do
             el when rem(el,13) == 0 -> 13
             el -> rem(el,13)
         end
-        Enum.sort_by(hand,sortFunc)
+        Enum.sort(hand)
+        |> Enum.sort_by(sortFunc)
         |> Enum.map(suitFunc) 
         
     end
