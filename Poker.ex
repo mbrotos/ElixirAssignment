@@ -146,7 +146,7 @@ defmodule Poker do
     def output(hand) do
         remString = fn 
             el when rem(el,13) == 0 -> to_string(13)
-            _ -> to_string(rem(el,13))
+            el -> to_string(rem(el,13))
         end
         suitFunc = fn 
             el when el in 1..13 -> to_string(el) <> "C"
@@ -155,8 +155,11 @@ defmodule Poker do
             el when el in 40..52 -> remString.(el) <> "S"
             _ -> :error
         end
-        hand 
-        |> Enum.sort
+        sortFunc = fn 
+            el when rem(el,13) == 0 -> 13
+            el -> rem(el,13)
+        end
+        Enum.sort_by(hand,sortFunc)
         |> Enum.map(suitFunc) 
         
     end
