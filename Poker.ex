@@ -137,8 +137,7 @@ defmodule Poker do
         case type do
             x when x in [0,4,5,8,9] -> tie_highcard(hand1, hand2)
             x when x in [1,3] -> tie_pair(hand1, hand2) 
-            3 -> tie_threeOfKind(hand1, hand2)
-            6 -> tie_highcard(hand1, hand2) #idk if this works
+            x when x in [3,6] -> tie_threeOfKind(hand1, hand2)
             7 -> tie_fourOfKind(hand1, hand2)
         end
     end
