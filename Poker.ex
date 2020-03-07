@@ -1,8 +1,30 @@
 defmodule Poker do
+    @moduledoc """
+    A poker game module implementing hand checking, tie breaking, and outputting.
+    """
+
+    @doc """
+    Takes the remainder when divided by 13 for each element of a list.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec baseHand(List.t()) :: List.t()
     def baseHand(hand) do
         Enum.map(hand, &(rem(&1,13))) 
     end
 
+    @doc """
+    Checks if a hand is a flush.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec is_flush(List.t()) :: Boolean.t()
     def is_flush(hand) do 
         Enum.all?(hand, &(&1 in 1..13))  ||
         Enum.all?(hand, &(&1 in 14..26)) ||
@@ -11,6 +33,15 @@ defmodule Poker do
         true
     end
 
+    @doc """
+    Checks if a hand is a straight.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec is_straight(List.t()) :: Boolean.t()
     def is_straight(hand) do
 		hand_rem = Enum.sort(baseHand(hand))
 		hand_rem==[0,1,10,11,12] ||
@@ -20,6 +51,15 @@ defmodule Poker do
         true
 	end
 
+    @doc """
+    Checks if a hand is a three of a kind.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec is_threeOfKind(List.t()) :: Boolean.t()
     def is_threeOfKind(hand) do
         bHand = baseHand(hand)
         uniqHand = Enum.uniq(bHand)
@@ -27,37 +67,100 @@ defmodule Poker do
         Enum.any?(uniqHand, fn(s) -> Enum.count(bHand, &(&1==s)) == 3 end)
     end
 
+    @doc """
+    Checks if a hand is a two pair.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec is_twoPair(List.t()) :: Boolean.t()
     def is_twoPair(hand) do
         bHand = baseHand(hand)
         length(Enum.uniq(bHand)) == 3
     end
 
+    @doc """
+    Checks if a hand is a pair.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec is_pair(List.t()) :: Boolean.t()
     def is_pair(hand) do
         bHand = baseHand(hand)
         length(Enum.uniq(bHand)) == 4
     end
 
+    @doc """
+    Checks if a hand is a royal flush.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec is_royalFlush(List.t()) :: Boolean.t()
     def is_royalFlush(hand) do
         is_flush(hand) &&
         is_straight(hand) &&
         baseHand(hand) == [0,1,10,11,12]
     end
 
+    @doc """
+    Checks if a hand is a striaght flush.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec is_straightFlush(List.t()) :: Boolean.t()
     def is_straightFlush(hand) do
         is_flush(hand) &&
         is_straight(hand)
     end
 
+    @doc """
+    Checks if a hand is a four of a kind.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec is_fourOfKind(List.t()) :: Boolean.t()
     def is_fourOfKind(hand) do
         bHand = baseHand(hand) 
         length(Enum.uniq(bHand)) == 2
     end
 
+    @doc """
+    Checks if a hand is a full house.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec is_fullHouse(List.t()) :: Boolean.t()
     def is_fullHouse(hand) do
         is_threeOfKind(hand) &&
         is_twoPair(hand)
     end
 
+    @doc """
+    Adds 13 to each element of 1 or 0 in a list helping to evaluate highcards.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec normalizeHand(List.t()) :: List.t()
     def normalizeHand(hand) do
         aceKingFn = fn
 			e1 when e1==0 or e1==1 -> e1+13
@@ -66,10 +169,29 @@ defmodule Poker do
         Enum.map(hand, aceKingFn)
     end
 
+    @doc """
+    Sorts a list in descending order helping to evaluate highcards and suits.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec sortDesc(List.t()) :: List.t()
     def sortDesc(hand) do
         Enum.sort_by(hand, &(&1), :desc)
     end
 
+    @doc """
+    Finds the hand with the highest card value or suit.
+
+    ## Parameters
+
+        - hand1: List representing player one's poker hand.
+        - hand2: List representing player two's poker hand.
+
+    """
+    @spec tie_highcard(List.t(), List.t()) :: List.t()
     def tie_highcard(hand1, hand2) do
         h1Base = baseHand(hand1)
         h2Base = baseHand(hand2)
@@ -83,6 +205,15 @@ defmodule Poker do
 
     end
 
+    @doc """
+    Extracts the duplicate elements of a list.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec getPairList(List.t()) :: List.t()
     def getPairList(hand) do
         hand
         |> Enum.group_by(&(&1))
@@ -90,6 +221,16 @@ defmodule Poker do
         |> Enum.map(fn {x, _} -> x end)
     end
 
+    @doc """
+    Tie brakes two one pair type hands.
+
+    ## Parameters
+
+        - hand1: List representing player one's poker hand.
+        - hand2: List representing player two's poker hand.
+
+    """
+    @spec tie_pair(List.t(), List.t()) :: List.t()
     def tie_pair(hand1, hand2) do 
         h1Base = baseHand(hand1)
         h2Base = baseHand(hand2)
@@ -100,12 +241,23 @@ defmodule Poker do
         || tie_highcard(hand1,hand2)
     end
 
+    #add doc
     def find_n_OfKind(list,num) do	
 		normalizeHand(list)
 		|> Enum.reduce(%{}, fn x, acc -> Map.update(acc, x, 1, &(&1 + 1)) end)
 		|> Enum.find(fn {_, val} -> val == num  end) |> elem(0)
 	end
 
+    @doc """
+    Tie brakes two four of a kind type hands.
+
+    ## Parameters
+
+        - hand1: List representing player one's poker hand.
+        - hand2: List representing player two's poker hand.
+
+    """
+    @spec tie_fourOfKind(List.t(), List.t()) :: List.t()
 	def tie_fourOfKind(hand1, hand2) do
 		bhand1 = baseHand(hand1)
 		bhand2 = baseHand(hand2)
@@ -113,6 +265,16 @@ defmodule Poker do
         find_n_OfKind(bhand1, 4) < find_n_OfKind(bhand2, 4) && hand2
 	end
 
+    @doc """
+    Tie brakes two three of a kind type hands.
+
+    ## Parameters
+
+        - hand1: List representing player one's poker hand.
+        - hand2: List representing player two's poker hand.
+
+    """
+    @spec tie_threeOfKind(List.t(), List.t()) :: List.t()
 	def tie_threeOfKind(hand1, hand2) do
         bhand1 = baseHand(hand1)
         bhand2 = baseHand(hand2)
@@ -120,6 +282,16 @@ defmodule Poker do
         find_n_OfKind(bhand1, 3) < find_n_OfKind(bhand2, 3) && hand2
     end
 
+    @doc """
+    Tie brakes two straight type hands.
+
+    ## Parameters
+
+        - hand1: List representing player one's poker hand.
+        - hand2: List representing player two's poker hand.
+
+    """
+    @spec tie_straight(List.t(), List.t()) :: List.t()
     def tie_straight(hand1, hand2) do
         bDescHand1 = baseHand(sortDesc(hand1))
         bDescHand2 = baseHand(sortDesc(hand2))
@@ -131,6 +303,15 @@ defmodule Poker do
         || hand2 
     end
 
+    @doc """
+    Uses hand checking functions to return the highest type.
+
+    ## Parameters
+
+        - hand: List representing a poker hand.
+
+    """
+    @spec getType(List.t()) :: Integer.t()
     def getType(hand) do 
         cond do
             is_royalFlush(hand) -> 9
@@ -146,6 +327,17 @@ defmodule Poker do
         end
     end
 
+    @doc """
+    Uses tie breaking functions to return winning hand
+
+    ## Parameters
+
+        - hand1: List representing player one's poker hand.
+        - hand2: List representing player two's poker hand.
+        - type: Integer representing the type of hand in common.
+
+    """
+    @spec tieBreak(List.t(), List.t(), Integer.t()) :: List.t()
     def tieBreak(hand1, hand2, type) do
         case type do
             x when x in [0,5] -> tie_highcard(hand1, hand2)
@@ -157,6 +349,15 @@ defmodule Poker do
         end
     end
 
+    @doc """
+    Returns the properly formatted winning poker hand.
+
+    ## Parameters
+
+        - hand: List representing the winning poker hand.
+
+    """
+    @spec output(List.t()) :: List.t()
     def output(hand) do
         remString = fn 
             el when rem(el,13) == 0 -> to_string(13)
@@ -178,6 +379,15 @@ defmodule Poker do
         |> Enum.map(suitFunc)  
     end
 
+    @doc """
+    Deals cards based on input and sends winning hand to output function.
+
+    ## Parameters
+
+        - intList: List of 10 unique integers from 1-52 representing two poker hands.
+
+    """
+    @spec output(List.t()) :: List.t()
     def deal(intList) do
         listWithIndexS = Stream.with_index(intList)
         hands = listWithIndexS
