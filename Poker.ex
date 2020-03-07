@@ -236,8 +236,8 @@ defmodule Poker do
         h2Base = baseHand(hand2)
         pairList1 = Enum.sort_by(normalizeHand(h1Base), &(&1), :desc) |> getPairList
         pairList2 = Enum.sort_by(normalizeHand(h2Base), &(&1), :desc) |> getPairList
-        ((pairList1 > pairList2) && pairList1) 
-        || ((pairList2 > pairList1) && pairList2)
+        ((pairList1 > pairList2) && hand1) 
+        || ((pairList2 > pairList1) && hand2)
         || tie_highcard(hand1,hand2)
     end
 
@@ -387,7 +387,7 @@ defmodule Poker do
         - intList: List of 10 unique integers from 1-52 representing two poker hands.
 
     """
-    @spec output(List.t()) :: List.t()
+    @spec deal(List.t()) :: List.t()
     def deal(intList) do
         listWithIndexS = Stream.with_index(intList)
         hands = listWithIndexS
