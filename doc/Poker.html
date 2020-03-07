@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.21.3">
+    <meta name="project" content="poker v0.1.0">
+    <title>Poker — poker v0.1.0</title>
+    <link rel="stylesheet" href="dist/elixir-0ab8a6a80ebaaa287431.css" />
+    <script src="dist/sidebar_items-a3c87e7e79.js"></script>
+      <script src="docs_config.js"></script>
+    <script async src="dist/app-a225d03098e64fef431a.js"></script>
+  </head>
+  <body data-type="modules">
+    <script>try { if(localStorage.getItem('night-mode') === 'true') document.body.className += ' night-mode'; } catch (e) { }</script>
+<div class="main">
+
+<button class="sidebar-button sidebar-toggle">
+  <span class="icon-menu" title="Collapse/expand sidebar"></span>
+</button>
+
+<section class="sidebar">
+  <form class="sidebar-search" action="search.html">
+    <button type="submit" class="search-button">
+      <span class="icon-search" aria-hidden="true"></span>
+    </button>
+    <button type="button" tabindex="-1" class="search-close-button">
+      <span class="icon-cross" title="Cancel search"></span>
+    </button>
+    <label class="search-label">
+      <input name="q" type="text" id="search-list" class="search-input" placeholder="Search..." aria-label="Search" autocomplete="off" />
+    </label>
+  </form>
+
+  <div class="autocomplete">
+    <div class="autocomplete-results">
+    </div>
+  </div>
+
+  <div class="sidebar-header">
+    <div class="sidebar-projectDetails">
+      <a href="api-reference.html" class="sidebar-projectName">
+poker      </a>
+      <h2 class="sidebar-projectVersion">
+        v0.1.0
+      </h2>
+    </div>
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+
+  </ul>
+  <div class="gradient"></div>
+  <ul id="full-list" class="sidebar-fullList"></ul>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+      <h1>
+        <small class="app-vsn">poker v0.1.0</small>
+Poker      </h1>
+
+
+        <section id="moduledoc">
+<p>A poker game module implementing hand checking, tie breaking, and outputting.</p>
+        </section>
+
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+            Summary
+          </h1>
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#baseHand/1">baseHand(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Takes the remainder when divided by 13 for each element of a list.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#deal/1">deal(intList)</a>
+  </div>
+    <div class="summary-synopsis"><p>Deals cards based on input and sends winning hand to output function.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#find_n_OfKind/2">find_n_OfKind(list, num)</a>
+  </div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#getPairList/1">getPairList(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Extracts the duplicate elements of a list.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#getType/1">getType(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Uses hand checking functions to return the highest type.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#is_flush/1">is_flush(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if a hand is a flush.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#is_fourOfKind/1">is_fourOfKind(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if a hand is a four of a kind.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#is_fullHouse/1">is_fullHouse(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if a hand is a full house.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#is_pair/1">is_pair(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if a hand is a pair.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#is_royalFlush/1">is_royalFlush(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if a hand is a royal flush.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#is_straight/1">is_straight(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if a hand is a straight.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#is_straightFlush/1">is_straightFlush(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if a hand is a striaght flush.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#is_threeOfKind/1">is_threeOfKind(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if a hand is a three of a kind.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#is_twoPair/1">is_twoPair(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Checks if a hand is a two pair.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#normalizeHand/1">normalizeHand(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Adds 13 to each element of 1 or 0 in a list helping to evaluate highcards.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#output/1">output(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Returns the properly formatted winning poker hand.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#sortDesc/1">sortDesc(hand)</a>
+  </div>
+    <div class="summary-synopsis"><p>Sorts a list in descending order helping to evaluate highcards and suits.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#tieBreak/3">tieBreak(hand1, hand2, type)</a>
+  </div>
+    <div class="summary-synopsis"><p>Uses tie breaking functions to return winning hand</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#tie_fourOfKind/2">tie_fourOfKind(hand1, hand2)</a>
+  </div>
+    <div class="summary-synopsis"><p>Tie brakes two four of a kind type hands.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#tie_highcard/2">tie_highcard(hand1, hand2)</a>
+  </div>
+    <div class="summary-synopsis"><p>Finds the hand with the highest card value or suit.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#tie_pair/2">tie_pair(hand1, hand2)</a>
+  </div>
+    <div class="summary-synopsis"><p>Tie brakes two one pair type hands.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#tie_straight/2">tie_straight(hand1, hand2)</a>
+  </div>
+    <div class="summary-synopsis"><p>Tie brakes two straight type hands.</p></div>
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#tie_threeOfKind/2">tie_threeOfKind(hand1, hand2)</a>
+  </div>
+    <div class="summary-synopsis"><p>Tie brakes two three of a kind type hands.</p></div>
+</div>
+  </div>
+        </section>
+
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <span class="icon-link" aria-hidden="true"></span>
+              <span class="sr-only">Link to this section</span>
+            </a>
+Functions          </h1>
+          <div class="functions-list">
+<section class="detail" id="baseHand/1">
+  <div class="detail-header">
+    <a href="#baseHand/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">baseHand(hand)</h1>
+      <div class="specs">
+          <pre>baseHand(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Takes the remainder when divided by 13 for each element of a list.</p>
+<h2 id="baseHand/1-parameters" class="section-heading">
+  <a href="#baseHand/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="deal/1">
+  <div class="detail-header">
+    <a href="#deal/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">deal(intList)</h1>
+  </div>
+  <section class="docstring">
+<p>Deals cards based on input and sends winning hand to output function.</p>
+<h2 id="deal/1-parameters" class="section-heading">
+  <a href="#deal/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">intList</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="n">unique</span><span class="w"> </span><span class="n">integers</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="mi">1</span><span class="o">-</span><span class="mi">52</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hands</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="find_n_OfKind/2">
+  <div class="detail-header">
+    <a href="#find_n_OfKind/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">find_n_OfKind(list, num)</h1>
+  </div>
+  <section class="docstring">
+  </section>
+</section>
+<section class="detail" id="getPairList/1">
+  <div class="detail-header">
+    <a href="#getPairList/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">getPairList(hand)</h1>
+      <div class="specs">
+          <pre>getPairList(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Extracts the duplicate elements of a list.</p>
+<h2 id="getPairList/1-parameters" class="section-heading">
+  <a href="#getPairList/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="getType/1">
+  <div class="detail-header">
+    <a href="#getType/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">getType(hand)</h1>
+      <div class="specs">
+          <pre>getType(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/Integer.html#t:t/0">Integer.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Uses hand checking functions to return the highest type.</p>
+<h2 id="getType/1-parameters" class="section-heading">
+  <a href="#getType/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="is_flush/1">
+  <div class="detail-header">
+    <a href="#is_flush/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">is_flush(hand)</h1>
+      <div class="specs">
+          <pre>is_flush(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: Boolean.t()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if a hand is a flush.</p>
+<h2 id="is_flush/1-parameters" class="section-heading">
+  <a href="#is_flush/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="is_fourOfKind/1">
+  <div class="detail-header">
+    <a href="#is_fourOfKind/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">is_fourOfKind(hand)</h1>
+      <div class="specs">
+          <pre>is_fourOfKind(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: Boolean.t()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if a hand is a four of a kind.</p>
+<h2 id="is_fourOfKind/1-parameters" class="section-heading">
+  <a href="#is_fourOfKind/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="is_fullHouse/1">
+  <div class="detail-header">
+    <a href="#is_fullHouse/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">is_fullHouse(hand)</h1>
+      <div class="specs">
+          <pre>is_fullHouse(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: Boolean.t()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if a hand is a full house.</p>
+<h2 id="is_fullHouse/1-parameters" class="section-heading">
+  <a href="#is_fullHouse/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="is_pair/1">
+  <div class="detail-header">
+    <a href="#is_pair/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">is_pair(hand)</h1>
+      <div class="specs">
+          <pre>is_pair(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: Boolean.t()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if a hand is a pair.</p>
+<h2 id="is_pair/1-parameters" class="section-heading">
+  <a href="#is_pair/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="is_royalFlush/1">
+  <div class="detail-header">
+    <a href="#is_royalFlush/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">is_royalFlush(hand)</h1>
+      <div class="specs">
+          <pre>is_royalFlush(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: Boolean.t()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if a hand is a royal flush.</p>
+<h2 id="is_royalFlush/1-parameters" class="section-heading">
+  <a href="#is_royalFlush/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="is_straight/1">
+  <div class="detail-header">
+    <a href="#is_straight/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">is_straight(hand)</h1>
+      <div class="specs">
+          <pre>is_straight(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: Boolean.t()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if a hand is a straight.</p>
+<h2 id="is_straight/1-parameters" class="section-heading">
+  <a href="#is_straight/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="is_straightFlush/1">
+  <div class="detail-header">
+    <a href="#is_straightFlush/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">is_straightFlush(hand)</h1>
+      <div class="specs">
+          <pre>is_straightFlush(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: Boolean.t()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if a hand is a striaght flush.</p>
+<h2 id="is_straightFlush/1-parameters" class="section-heading">
+  <a href="#is_straightFlush/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="is_threeOfKind/1">
+  <div class="detail-header">
+    <a href="#is_threeOfKind/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">is_threeOfKind(hand)</h1>
+      <div class="specs">
+          <pre>is_threeOfKind(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: Boolean.t()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if a hand is a three of a kind.</p>
+<h2 id="is_threeOfKind/1-parameters" class="section-heading">
+  <a href="#is_threeOfKind/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="is_twoPair/1">
+  <div class="detail-header">
+    <a href="#is_twoPair/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">is_twoPair(hand)</h1>
+      <div class="specs">
+          <pre>is_twoPair(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: Boolean.t()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Checks if a hand is a two pair.</p>
+<h2 id="is_twoPair/1-parameters" class="section-heading">
+  <a href="#is_twoPair/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="normalizeHand/1">
+  <div class="detail-header">
+    <a href="#normalizeHand/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">normalizeHand(hand)</h1>
+      <div class="specs">
+          <pre>normalizeHand(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Adds 13 to each element of 1 or 0 in a list helping to evaluate highcards.</p>
+<h2 id="normalizeHand/1-parameters" class="section-heading">
+  <a href="#normalizeHand/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="output/1">
+  <div class="detail-header">
+    <a href="#output/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">output(hand)</h1>
+      <div class="specs">
+          <pre>output(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+          <pre>output(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Returns the properly formatted winning poker hand.</p>
+<h2 id="output/1-parameters" class="section-heading">
+  <a href="#output/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">winning</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="sortDesc/1">
+  <div class="detail-header">
+    <a href="#sortDesc/1" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">sortDesc(hand)</h1>
+      <div class="specs">
+          <pre>sortDesc(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Sorts a list in descending order helping to evaluate highcards and suits.</p>
+<h2 id="sortDesc/1-parameters" class="section-heading">
+  <a href="#sortDesc/1-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="tieBreak/3">
+  <div class="detail-header">
+    <a href="#tieBreak/3" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">tieBreak(hand1, hand2, type)</h1>
+      <div class="specs">
+          <pre>tieBreak(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>(), <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>(), <a href="https://hexdocs.pm/elixir/Integer.html#t:t/0">Integer.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Uses tie breaking functions to return winning hand</p>
+<h2 id="tieBreak/3-parameters" class="section-heading">
+  <a href="#tieBreak/3-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand1</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">player</span><span class="w"> </span><span class="n">one</span><span class="sc">&#39;s poker hand.
+- hand2: List representing player two&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span><span class="w">
+</span><span class="o">-</span><span class="w"> </span><span class="ss">type</span><span class="p">:</span><span class="w"> </span><span class="nc">Integer</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">hand</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">common</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="tie_fourOfKind/2">
+  <div class="detail-header">
+    <a href="#tie_fourOfKind/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">tie_fourOfKind(hand1, hand2)</h1>
+      <div class="specs">
+          <pre>tie_fourOfKind(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>(), <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Tie brakes two four of a kind type hands.</p>
+<h2 id="tie_fourOfKind/2-parameters" class="section-heading">
+  <a href="#tie_fourOfKind/2-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand1</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">player</span><span class="w"> </span><span class="n">one</span><span class="sc">&#39;s poker hand.
+- hand2: List representing player two&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="tie_highcard/2">
+  <div class="detail-header">
+    <a href="#tie_highcard/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">tie_highcard(hand1, hand2)</h1>
+      <div class="specs">
+          <pre>tie_highcard(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>(), <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Finds the hand with the highest card value or suit.</p>
+<h2 id="tie_highcard/2-parameters" class="section-heading">
+  <a href="#tie_highcard/2-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand1</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">player</span><span class="w"> </span><span class="n">one</span><span class="sc">&#39;s poker hand.
+- hand2: List representing player two&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="tie_pair/2">
+  <div class="detail-header">
+    <a href="#tie_pair/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">tie_pair(hand1, hand2)</h1>
+      <div class="specs">
+          <pre>tie_pair(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>(), <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Tie brakes two one pair type hands.</p>
+<h2 id="tie_pair/2-parameters" class="section-heading">
+  <a href="#tie_pair/2-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand1</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">player</span><span class="w"> </span><span class="n">one</span><span class="sc">&#39;s poker hand.
+- hand2: List representing player two&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="tie_straight/2">
+  <div class="detail-header">
+    <a href="#tie_straight/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">tie_straight(hand1, hand2)</h1>
+      <div class="specs">
+          <pre>tie_straight(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>(), <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Tie brakes two straight type hands.</p>
+<h2 id="tie_straight/2-parameters" class="section-heading">
+  <a href="#tie_straight/2-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand1</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">player</span><span class="w"> </span><span class="n">one</span><span class="sc">&#39;s poker hand.
+- hand2: List representing player two&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+<section class="detail" id="tie_threeOfKind/2">
+  <div class="detail-header">
+    <a href="#tie_threeOfKind/2" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">tie_threeOfKind(hand1, hand2)</h1>
+      <div class="specs">
+          <pre>tie_threeOfKind(<a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>(), <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()) :: <a href="https://hexdocs.pm/elixir/List.html#t:t/0">List.t</a>()</pre>
+      </div>
+  </div>
+  <section class="docstring">
+<p>Tie brakes two three of a kind type hands.</p>
+<h2 id="tie_threeOfKind/2-parameters" class="section-heading">
+  <a href="#tie_threeOfKind/2-parameters" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Parameters
+</h2>
+
+<pre><code class="nohighlight makeup elixir"><span class="o">-</span><span class="w"> </span><span class="ss">hand1</span><span class="p">:</span><span class="w"> </span><span class="nc">List</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">player</span><span class="w"> </span><span class="n">one</span><span class="sc">&#39;s poker hand.
+- hand2: List representing player two&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">poker</span><span class="w"> </span><span class="n">hand</span><span class="o">.</span></code></pre>
+  </section>
+</section>
+          </div>
+        </section>
+      <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.21.3),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" rel="noopener" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+        </p>
+        <p>
+          <button class="line footer-button display-shortcuts-help">
+            Display keyboard shortcuts
+          </button>
+          <button class="line footer-button night-mode-toggle">
+            Toggle night mode
+          </button>
+          <button class="line footer-button display-quick-switch">
+            Go to a HexDocs package
+          </button>
+          <button class="line footer-button tooltips-toggle">
+            <span class="tooltips-option-disable">Disable tooltips</span>
+            <span class="tooltips-option-enable">Enable tooltips</span>
+          </button>
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  </body>
+</html>
