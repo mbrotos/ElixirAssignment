@@ -26,4 +26,13 @@ defmodule Poker do
                 find_n_OfKind(bhand1, 3) > find_n_OfKind(bhand2, 3)&& hand1 || find_n_OfKind(bhand1, 3) < find_n_OfKind(bhand2, 3)&& hand2
         end
 
+	def tie_pair(hand1, hand2) do
+		bhand1=bhand1 = Enum.map(hand1, fn(n) -> rem(n,13) end)
+                bhand2 = Enum.map(hand2, fn(n) -> rem(n,13) end)
+                hand1_pair = find_n_OfKind(bhand1, 2)
+		hand2_pair = find_n_OfKind(bhand2, 2)
+		hand1_pair > hand2_pair && hand1 || hand1_pair < hand2_pair && hand2 # ||
+		#HighCard(Enum.reject(hand1, fn n -> n==hand1_pair end), Enum.reject(hand2, fn n -> n==hand2_pair ) 
+	end
+
 end
