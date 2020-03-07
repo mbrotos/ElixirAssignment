@@ -1,5 +1,4 @@
 defmodule Poker do
-
     def baseHand(hand) do
         Enum.map(hand, &(rem(&1,13))) 
     end
@@ -160,8 +159,7 @@ defmodule Poker do
         end
         Enum.sort(hand)
         |> Enum.sort_by(sortFunc)
-        |> Enum.map(suitFunc) 
-        
+        |> Enum.map(suitFunc)  
     end
 
     def deal(intList) do
@@ -177,7 +175,7 @@ defmodule Poker do
         handTwo = hd(tl(hands))
         handOneType = getType(handOne)
         handTwoType = getType(handTwo)
-        ((handOneType > handTwoType) && output(handOne) )   ||
+        ((handOneType > handTwoType) && output(handOne))   ||
         ((handTwoType > handOneType) && output(handTwo))    ||
         tieBreak(handOne, handTwo, handOneType) |> output
     end  
