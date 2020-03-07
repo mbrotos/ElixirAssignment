@@ -66,15 +66,19 @@ defmodule Poker do
         Enum.map(hand, aceKingFn)
     end
 
+    def sortDesc(hand) do
+        Enum.sort_by(hand, &(&1), :desc)
+    end
+
     def tie_highcard(hand1, hand2) do
         h1Base = baseHand(hand1)
         h2Base = baseHand(hand2)
-        h1Base = Enum.sort_by(normalizeHand(h1Base), &(&1), :desc)
-        h2Base = Enum.sort_by(normalizeHand(h2Base), &(&1), :desc)
+        h1Base = sortDesc(normalizeHand(h1Base))
+        h2Base = sortDesc(normalizeHand(h2Base))
 
         ((h1Base > h2Base) && hand1)    
         || ((h2Base > h1Base) && hand2)    
-        || ((hand1 > hand2) && hand1)      
+        || ((sortDesc(hand1) > sortDesc(hand2)) && hand1)      
         || hand2 
 
     end
@@ -91,7 +95,8 @@ defmodule Poker do
         h2Base = baseHand(hand2)
         pairList1 = Enum.sort_by(normalizeHand(h1Base), &(&1), :desc) |> getPairList
         pairList2 = Enum.sort_by(normalizeHand(h2Base), &(&1), :desc) |> getPairList
-
+        #IO.inspect pairList1, charlists: :as_lists
+        #IO.inspect pairList2, charlists: :as_lists
         ((pairList1 > pairList2) && pairList1) 
         || ((pairList2 > pairList1) && pairList2)
         || tie_highcard(hand1,hand2)
@@ -117,6 +122,17 @@ defmodule Poker do
         find_n_OfKind(bhand1, 3) < find_n_OfKind(bhand2, 3) && hand2
     end
 
+    def tie_straight(hand1, hand2) do
+        bDescHand1 = baseHand(sortDesc(hand1))
+        bDescHand2 = baseHand(sortDesc(hand2))
+        baseCase = [5,4,3,2,1]
+        ((bDescHand1 != baseCase) || (bDescHand2 != baseCase)) && tie_highcard(hand1, hand2)
+        || ((bDescHand1 > bDescHand2) && hand1)    
+        || ((bDescHand2 > bDescHand1) && hand2)    
+        || ((sortDesc(hand1) > sortDesc(hand2)) && hand1)      
+        || hand2 
+    end
+
     def getType(hand) do 
         cond do
             is_royalFlush(hand) -> 9
@@ -134,10 +150,12 @@ defmodule Poker do
 
     def tieBreak(hand1, hand2, type) do
         case type do
-            x when x in [0,4,5,8,9] -> tie_highcard(hand1, hand2)
+            x when x in [0,4,5,8] -> tie_highcard(hand1, hand2)
             x when x in [1,2] -> tie_pair(hand1, hand2) 
             x when x in [3,6] -> tie_threeOfKind(hand1, hand2)
+            x when x in [4,8] -> tie_straight(hand1, hand2)
             7 -> tie_fourOfKind(hand1, hand2)
+            9 -> ((sortDesc(hand1) > sortDesc(hand2)) && hand1) || hand2  #suit tie break
         end
     end
 
@@ -175,6 +193,8 @@ defmodule Poker do
         handTwo = hd(tl(hands))
         handOneType = getType(handOne)
         handTwoType = getType(handTwo)
+        #IO.puts(handOneType)
+        #IO.puts(handTwoType)
         ((handOneType > handTwoType) && output(handOne))   ||
         ((handTwoType > handOneType) && output(handTwo))    ||
         tieBreak(handOne, handTwo, handOneType) |> output
