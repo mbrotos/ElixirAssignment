@@ -144,7 +144,10 @@ defmodule Poker do
     end
 
     def output(hand) do
-        remString = &(to_string(rem(&1,13)))
+        remString = fn 
+            el when rem(el,13) == 0 -> to_string(13)
+            _ -> to_string(rem(el,13))
+        end
         suitFunc = fn 
             el when el in 1..13 -> to_string(el) <> "C"
             el when el in 14..26 -> remString.(el) <> "D"
@@ -152,15 +155,10 @@ defmodule Poker do
             el when el in 40..52 -> remString.(el) <> "S"
             _ -> :error
         end
-        kingFn = fn
-			e1 when e1==0 -> e1+13
-			e1->e1
-		end
         hand 
-        |> Stream.map(suitFunc) 
-        |> Stream.map(kingFn) 
-        |> Enum.to_list
         |> Enum.sort
+        |> Enum.map(suitFunc) 
+        
     end
 
     def deal(intList) do
@@ -176,8 +174,6 @@ defmodule Poker do
         handTwo = hd(tl(hands))
         handOneType = getType(handOne)
         handTwoType = getType(handTwo)
-        #IO.puts(handOneType) #debug
-        #IO.puts(handTwoType) #debug
         ((handOneType > handTwoType) && output(handOne) )   ||
         ((handTwoType > handOneType) && output(handTwo))    ||
         tieBreak(handOne, handTwo, handOneType) |> output
