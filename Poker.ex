@@ -249,8 +249,6 @@ defmodule Poker do
         h2Base = baseHand(hand2)
         pairList1 = Enum.sort_by(normalizeHand(h1Base), &(&1), :desc) |> getPairList
         pairList2 = Enum.sort_by(normalizeHand(h2Base), &(&1), :desc) |> getPairList
-        #IO.inspect pairList1, charlists: :as_lists
-        #IO.inspect pairList2, charlists: :as_lists
         ((pairList1 > pairList2) && hand1) 
         || ((pairList2 > pairList1) && hand2)
         || tie_highcard(hand1,hand2)
@@ -416,10 +414,6 @@ defmodule Poker do
         handTwo = hd(tl(hands))
         handOneType = getType(handOne)
         handTwoType = getType(handTwo)
-        #IO.puts(handOneType)
-        #IO.puts(handTwoType)
-        #IO.inspect handOne, charlists: :as_lists
-        #IO.inspect handTwo, charlists: :as_lists
         ((handOneType > handTwoType) && output(handOne))   ||
         ((handTwoType > handOneType) && output(handTwo))    ||
         tieBreak(handOne, handTwo, handOneType) |> output
