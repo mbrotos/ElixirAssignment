@@ -134,8 +134,10 @@ defmodule Poker do
     """
     @spec is_fourOfKind(List.t()) :: Boolean.t()
     def is_fourOfKind(hand) do
-        bHand = baseHand(hand) 
-        length(Enum.uniq(bHand)) == 2
+        bHand = baseHand(hand)
+        uniqHand = Enum.uniq(bHand)
+        (length(uniqHand) == 2) &&
+        Enum.any?(uniqHand, fn(s) -> Enum.count(bHand, &(&1==s)) == 4 end)
     end
 
     @doc """
@@ -148,8 +150,11 @@ defmodule Poker do
     """
     @spec is_fullHouse(List.t()) :: Boolean.t()
     def is_fullHouse(hand) do
+        bHand = baseHand(hand)
+        uniqHand = Enum.uniq(bHand)
+        
         is_threeOfKind(hand) &&
-        is_twoPair(hand)
+        (length(uniqHand) == 2)
     end
 
     @doc """
@@ -219,6 +224,7 @@ defmodule Poker do
         |> Enum.group_by(&(&1))
         |> Enum.filter(fn {_, [_,_|_]} -> true; _ -> false end)
         |> Enum.map(fn {x, _} -> x end)
+        |> sortDesc
     end
 
     @doc """
@@ -236,6 +242,8 @@ defmodule Poker do
         h2Base = baseHand(hand2)
         pairList1 = Enum.sort_by(normalizeHand(h1Base), &(&1), :desc) |> getPairList
         pairList2 = Enum.sort_by(normalizeHand(h2Base), &(&1), :desc) |> getPairList
+        #IO.inspect pairList1, charlists: :as_lists
+        #IO.inspect pairList2, charlists: :as_lists
         ((pairList1 > pairList2) && hand1) 
         || ((pairList2 > pairList1) && hand2)
         || tie_highcard(hand1,hand2)
@@ -401,6 +409,10 @@ defmodule Poker do
         handTwo = hd(tl(hands))
         handOneType = getType(handOne)
         handTwoType = getType(handTwo)
+        IO.puts(handOneType)
+        IO.puts(handTwoType)
+        IO.inspect handOne, charlists: :as_lists
+        IO.inspect handTwo, charlists: :as_lists
         ((handOneType > handTwoType) && output(handOne))   ||
         ((handTwoType > handOneType) && output(handTwo))    ||
         tieBreak(handOne, handTwo, handOneType) |> output
