@@ -1,3 +1,5 @@
+#Adam Sorrenti && 
+
 defmodule Poker do
     @moduledoc """
     A poker game module implementing hand checking, tie breaking, and outputting.
