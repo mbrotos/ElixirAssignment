@@ -152,9 +152,8 @@ defmodule Poker do
     def is_fullHouse(hand) do
         bHand = baseHand(hand)
         uniqHand = Enum.uniq(bHand)
-        
-        is_threeOfKind(hand) &&
-        (length(uniqHand) == 2)
+        (length(uniqHand) == 2) &&
+        Enum.any?(uniqHand, fn(s) -> Enum.count(bHand, &(&1==s)) == 3 end)
     end
 
     @doc """
