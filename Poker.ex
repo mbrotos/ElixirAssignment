@@ -43,9 +43,14 @@ defmodule Poker do
     """
     @spec is_straight(List.t()) :: Boolean.t()
     def is_straight(hand) do
+        kingNorm = fn 
+            el when el == 0 -> 13
+            el -> el
+        end
 		hand_rem = Enum.sort(baseHand(hand))
 		hand_rem==[0,1,10,11,12] ||
 		hand_rem
+        |> Enum.map(kingNorm)
 		|> Enum.chunk_every(2, 1, :discard)
 		|> Enum.map(fn [x, y] -> y - x end)==[1,1,1,1] &&
         true
@@ -408,10 +413,10 @@ defmodule Poker do
         handTwo = hd(tl(hands))
         handOneType = getType(handOne)
         handTwoType = getType(handTwo)
-        #IO.puts(handOneType)
-        #IO.puts(handTwoType)
-        #IO.inspect handOne, charlists: :as_lists
-        #IO.inspect handTwo, charlists: :as_lists
+        IO.puts(handOneType)
+        IO.puts(handTwoType)
+        IO.inspect handOne, charlists: :as_lists
+        IO.inspect handTwo, charlists: :as_lists
         ((handOneType > handTwoType) && output(handOne))   ||
         ((handTwoType > handOneType) && output(handTwo))    ||
         tieBreak(handOne, handTwo, handOneType) |> output
