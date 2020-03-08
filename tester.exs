@@ -61,7 +61,8 @@ games = [
 ]
 
 testFunc = fn({intList,winnerInt}) ->
+    res = Tester.dealTest(intList, winnerInt)
     IO.puts(Tester.dealTest(intList, winnerInt))
-    IO.inspect Poker.deal(intList), charlists: :as_lists
+    res || IO.inspect Poker.deal(intList), charlists: :as_lists
 end
 Enum.each(games, testFunc)
