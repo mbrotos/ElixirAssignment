@@ -414,10 +414,10 @@ defmodule Poker do
         handTwo = hd(tl(hands))
         handOneType = getType(handOne)
         handTwoType = getType(handTwo)
-        IO.puts(handOneType)
-        IO.puts(handTwoType)
-        IO.inspect handOne, charlists: :as_lists
-        IO.inspect handTwo, charlists: :as_lists
+        #IO.puts(handOneType)
+        #IO.puts(handTwoType)
+        #IO.inspect handOne, charlists: :as_lists
+        #IO.inspect handTwo, charlists: :as_lists
         ((handOneType > handTwoType) && output(handOne))   ||
         ((handTwoType > handOneType) && output(handTwo))    ||
         tieBreak(handOne, handTwo, handOneType) |> output
