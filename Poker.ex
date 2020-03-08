@@ -1,4 +1,4 @@
-#Adam Sorrenti && Raunak Bajaj 500912844
+#Adam Sorrenti 500903848 && Raunak Bajaj 500912844
 
 defmodule Poker do
     @moduledoc """
