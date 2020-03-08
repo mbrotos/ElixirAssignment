@@ -51,6 +51,7 @@ defmodule Poker do
 		hand_rem==[0,1,10,11,12] ||
 		hand_rem
         |> Enum.map(kingNorm)
+        |> Enum.sort()
 		|> Enum.chunk_every(2, 1, :discard)
 		|> Enum.map(fn [x, y] -> y - x end)==[1,1,1,1] &&
         true
